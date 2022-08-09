@@ -1,0 +1,98 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Satisfy&display=swap");
+/* VARIABLES */
+/*MODIFICADORES UNIVERSALES */
+* {
+  margin: 0%;
+  box-sizing: border-box; }
+
+nav .logo {
+  margin-right: 50px; }
+
+nav ul {
+  display: flex;
+  flex-direction: row; }
+
+nav li {
+  display: inline;
+  font-size: larger;
+  margin: 4px; }
+
+nav .boton {
+  width: 150px;
+  text-align: center;
+  font-size: large;
+  border-radius: 25px;
+  background-color: blue;
+  color: #271507;
+  font-family: "Indie Flower", cursive;
+  font-weight: bolder;
+  text-decoration: none;
+  background-image: rgba(255, 255, 255, 0.514); }
+
+nav .boton:hover, nav a:focus {
+  background-size: 100% 6px;
+  transition: background-size 2s;
+  background-color: #00009b; }
+
+/*PIE DE PÁGINA */
+footer #fondoFooter {
+  font-size: 20px;
+  font-style: normal;
+  background-color: #271507; }
+  footer #fondoFooter .redes {
+    font-size: larger;
+    font-family: "Pacifico", cursive; }
+  footer #fondoFooter .Instagram {
+    list-style: none;
+    font-family: "Pacifico", cursive; }
+  footer #fondoFooter .Facebook {
+    list-style: none;
+    margin: 20px 0px 20px 0px;
+    font-family: "Pacifico", cursive; }
+  footer #fondoFooter .fa-facebook, footer #fondoFooter .fa-instagram, footer #fondoFooter .fa-whatsapp {
+    margin-right: 5px; }
+  footer #fondoFooter .n1 {
+    list-style: none;
+    font-family: "Pacifico", cursive; }
+  footer #fondoFooter .n2 {
+    list-style: none;
+    font-family: "Pacifico", cursive; }
+
+.contacto {
+  height: 0px; }
+  .contacto .flex__container {
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-image: linear-gradient(to right, white, #b17f48);
+    padding: 15px; }
+  .contacto .mensaje {
+    text-align: center;
+    padding: 8px;
+    font-size: 40px;
+    font-family: "Pacifico", cursive;
+    background-color: rgba(255, 255, 255, 0.514);
+    color: blue; }
+  .contacto .form {
+    width: 100%;
+    height: 400px;
+    flex: 1; }
+  .contacto .form__input {
+    width: 70%;
+    margin: 7px;
+    padding: 7px;
+    border: 2px solid rgba(255, 255, 255, 0.514);
+    background: transparent;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium; }
+  .contacto #button {
+    width: 160px;
+    justify-items: center; }
+  .contacto .form__input:focus {
+    background-color: rgba(255, 255, 255, 0.514);
+    outline: none; }
+  .contacto textarea {
+    min-height: 100px;
+    resize: none; }
