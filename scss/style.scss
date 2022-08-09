@@ -6,68 +6,14 @@ $font2:'Pacifico', cursive;
 $font3:'Satisfy', cursive;
 
 $color1:rgb(0, 0, 255);
-$color2:rgba(255, 255, 255, 0.514);
+$color2:rgba(255, 255, 255, 0.5);
 $color3:rgb(39, 21, 7);
+$color4: rgb(0, 195, 255);
 $hover:rgb(0, 0, 155);
 
-/*MODIFICADORES UNIVERSALES */
-
-*{margin: 0%;
-box-sizing: border-box;
-}
 
 @import "_header";
 @import "_footer";
-
-
-.contacto{
-    height: 0px;
-
-    .flex__container {
-        display: flex;
-        text-align: center;
-        flex-wrap: wrap;
-        justify-content: center;
-        background-image:linear-gradient(to right,white, #b17f48);
-        padding: 15px;
-    }
-    .mensaje {
-        text-align: center;
-        padding: 8px;
-        font-size: 40px;
-        font-family: $font2;
-        background-color:$color2;
-        color: $color1;
-    }
-    .form {
-        width: 100%;
-        height: 400px;
-        flex: 1;
-    }
-    .form__input {
-        width: 70%;
-        margin: 7px;
-        padding: 7px;
-        border: 2px solid $color2;
-        background: transparent;
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        font-size: medium;
-    }
-
-    #button {
-        width: 160px;
-        justify-items: center;
-    }
-
-    .form__input:focus {
-        background-color:$color2;
-        outline: none;
-    }
-
-    textarea {
-        min-height: 100px;
-        resize: none;
-    }
-
-}
-
+@import "_login";
+@import "_register";
+@import "_contact"

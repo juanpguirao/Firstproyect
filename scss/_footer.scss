@@ -1,11 +1,12 @@
 /*PIE DE PÁGINA */
 
 footer {
-
+    border:2px 0px;
+    border-color: black;
     #fondoFooter{
         font-size: 20px;
         font-style: normal;
-        background-color:  $color3;
+        background-color:  $color2;
 
         .redes {
         font-size: larger;
