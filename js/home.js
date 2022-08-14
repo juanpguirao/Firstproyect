@@ -4,5 +4,5 @@ section.innerHTML=`
 <h2>Bienvenido/a a nuestra aplicacion</h2>
 <p>Inicia secion o Registrate</p>
 <button><a href="./view/login.html">Iniciar Sesion</a></button>
-<button><a href="./view/Regitro.html">Regístrate</a></button>
+<button><a href="./view/Shop.html">Shop</a></button>
 `;

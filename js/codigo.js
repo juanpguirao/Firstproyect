@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 // //se crean los arrays con los diferentes campos necesarios
 // //Arrays de Usuarios registrados, con nombre apellido y clases a inscribirse
 // class Usuario {
