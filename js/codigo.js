@@ -17,14 +17,14 @@
 // }
 //  //Encontrar cuantos usuarios tiene cada clase
 // function encontrarIndex(arrayClases, claseAEncontrar){
-//     for (clase of arrayClases){
+//     for (const clase of arrayClases){
 //         if(claseAEncontrar == clase.nombre)
 //             return arrayClases.indexOf(clase);
 //     }
 // }
 // //Muestra  los  usuario inscriptos en todas las clases
 // function imprimirUsuarios(arrayUsuarios){
-//     for(usuario of arrayUsuarios)
+//     for(const usuario of arrayUsuarios)
 //             console.table(usuario)
 //         }
     

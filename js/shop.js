@@ -1,51 +1,62 @@
-const clasesx8 = {
-    id:1,
-    nombre: "Pack de 8 clases",
-    descripcion: "Pack de 8 clases para usar cuando vos quieras, vencimiento 1 mes",
-    vencimiento: "Vencimiento 1 mes",
-    precio: 2500,
-} 
-const clasesx12 = {
-    id:1,
-    nombre: "Pack de 12 clases",
-    descripcion: "Pack de 12 clases para usar cuando vos quieras, vencimiento 1 mes",
-    vencimiento: "Vencimiento 1 mes",
-    precio: 2800,
-} 
-const clasesx15 = {
-    id:1,
-    nombre: "Pack de 15 clases",
-    descripcion: "Pack de 15 clases para usar cuando vos quieras, vencimiento 1 mes",
-    vencimiento: "Vencimiento 1 mes",
-    precio: 3000,
-} 
+let carrito=[];
 
-let packs = document.getElementById("shop");
-packs.innerHTML=`
-<div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">${clasesx8.nombre}</h5>
-            <small>$${clasesx8.precio}</small>
-          </div>
-          <p class="mb-1">${clasesx8.descripcion}.</p>
-          <small>${clasesx8.vencimiento}</small>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">${clasesx12.nombre}</h5>
-            <small class="text-muted">${clasesx12.precio}</small>
-          </div>
-          <p class="mb-1">${clasesx12.descripcion}</p>
-          <small class="text-muted">${clasesx12.vencimiento}</small>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">${clasesx15.nombre}</h5>
-            <small class="text-muted">${clasesx15.precio}</small>
-          </div>
-          <p class="mb-1">${clasesx15.descripcion}</p>
-          <small class="text-muted">${clasesx15.vencimiento}</small>
-        </a>
+if(localStorage.getItem("carrito")){
+  carrito=JSON.parse(localStorage.getItem("carrito"));
+  
+}
+class listado {
+  constructor (id,nombre,descripcion,vencimiento, precio){
+  this.id = id;
+  this.nombre = nombre;
+  this.descripcion = descripcion;
+  this.vencimiento = vencimiento;
+  this.cantidad = parseFloat(cantidad);
+  this.precio= parseFloat(precio);
+}
+}
+
+//MOSTRANDO LOS PRODUCTOS UNO POR UNO 
+const packs = document.getElementById('shop');
+  const mostrar =()=>{
+    for(var producto of productos){
+
+      packs.innerHTML +=
+      `<div class="list-group" >
+        <a href="#" class="list-group-item list-group-item-action" aria-current="true" id="boton${producto.id}">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">${producto.nombre}</h5>
+          <small>$${producto.precio}</small>
+        </div>
+        <p class="mb-1">${producto.descripcion}.</p>
+        <small>${producto.vencimiento}</small>
+      </a>
       </div>
-`;
+      `;
+    }  
+
+}
+//Renderiza funcion
+mostrar();
+
+productos.forEach(producto => {
+  //evento individial para cada boton
+  document.getElementById(`boton${producto.id}`).addEventListener("click",function(){agregarAlCarrito(producto)});
+ })
+
+
+function agregarAlCarrito(agregar){ 
+    carrito.push(agregar);
+    alert("Tu: "+ agregar.nombre +" se han sumado al carro");
+    document.getElementById("checkout").innerHTML+=`
+    <tr>
+    <th scope="row">${carrito.length}</th>
+    <td>${agregar.nombre}</td>
+    <td>${agregar.cantidad}</td>
+    <td>${agregar.precio}</td>
+    </tr>
+    `;
+}
+
+
+
+
