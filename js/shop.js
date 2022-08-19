@@ -44,9 +44,10 @@ productos.forEach(producto => {
  })
  //Funcion para agregar 
 function agregarAlCarrito(agregar){ 
+    
     carrito.push(agregar);
     alert("Tu: "+ agregar.nombre +" se han sumado al carro");
-    document.getElementById("table").innerHTML+=`
+    document.getElementById("checkout").innerHTML+=`
     <tr>
     <th scope="row">${carrito.length}</th>
     <td>${agregar.nombre}</td>
