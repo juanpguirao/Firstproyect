@@ -1,5 +1,12 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Satisfy&display=swap");
+body {
+  background-image: url(../Imagen/bg3.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed; }
+
 /* VARIABLES */
 nav .logo {
   margin-right: 50px; }
@@ -118,7 +125,8 @@ span.psw {
     width: 100%; } }
 
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  background-color: img; }
 
 /* Add padding to containers */
 .container {
@@ -144,8 +152,9 @@ hr {
 
 /* Set a style for the submit/register button */
 .registerbtn {
-  background-color: #04AA6D;
+  background-color: #00c3ff;
   color: white;
+  border-radius: 15px;
   padding: 16px 20px;
   margin: 8px 0;
   border: none;

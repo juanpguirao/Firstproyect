@@ -1,5 +1,8 @@
 //registro
-* {box-sizing: border-box}
+* {box-sizing: border-box;
+  background-color: img;
+  
+  }
 
 /* Add padding to containers */
 .container {
@@ -29,8 +32,9 @@ hr {
 
 /* Set a style for the submit/register button */
 .registerbtn {
-  background-color: #04AA6D;
+  background-color: $color4;
   color: white;
+  border-radius: 15px;
   padding: 16px 20px;
   margin: 8px 0;
   border: none;

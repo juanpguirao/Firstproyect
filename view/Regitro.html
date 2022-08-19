@@ -44,19 +44,29 @@
             <h1>Register</h1>
                 <p>Llene los campos para registrarse</p>
                 <hr>
+                
+                <label for="nombre"><b>Nombre</b></label>
+                <input type="text" id="nombre" placeholder="Ingrese su Nombre" name="nombre" id="nombre" required />
+                
+                <label for="apellido"><b>Apellido</b></label>
+                <input type="text" id="apellido" placeholder="Ingrese su Apellido" name="apellido" id="apellido" required />                
+                
                 <label for="email"><b>Email</b></label>
                 <input id="email" type="text" placeholder="ingrese su Email" name="email" id="email" required>
+                
                 <label for="psw"><b>Contraseña</b></label>
                 <input id="contrasena1" type="password" placeholder="Ingrese su Contraseña" name="psw" id="psw" required>
+                
                 <label for="psw-repeat"><b>Repita la contraseña</b></label>
                 <input id="contrasena2" type="password" placeholder="Repita su Password" name="psw-repeat" id="psw-repeat" required>
+                
                 <hr>
                 <p>Al crear una cuenta, usted acepta nuestros<a href="#">Terminos y condiciones</a>.</p>
                 <button type="submit" class="registerbtn">Register</button>
         </div>
     
         <div class="container signin">
-            <p>Ya tenes una cuenta? <a href="#">Ingresar</a>.</p>
+            <p>Ya tenes una cuenta? <a href="./login.html">Ingresar</a>.</p>
         </div>
     </form>
 </section>

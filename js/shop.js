@@ -1,9 +1,12 @@
+//Array de productos cargados a carrito
 let carrito=[];
+
 
 if(localStorage.getItem("carrito")){
   carrito=JSON.parse(localStorage.getItem("carrito"));
   
 }
+//constructor de productos que vienen desde ../js/productos.js y se agregan al html directamente
 class listado {
   constructor (id,nombre,descripcion,vencimiento, precio){
   this.id = id;
@@ -14,8 +17,7 @@ class listado {
   this.precio= parseFloat(precio);
 }
 }
-
-//MOSTRANDO LOS PRODUCTOS UNO POR UNO 
+//MOSTRANDO LOS PRODUCTOS UNO POR UNO EN HTML Y SE EJECUTA LINE POSTERIOR
 const packs = document.getElementById('shop');
   const mostrar =()=>{
     for(var producto of productos){
@@ -33,21 +35,18 @@ const packs = document.getElementById('shop');
       </div>
       `;
     }  
-
 }
-//Renderiza funcion
 mostrar();
-
+//Agregando evento al boton para agregar al carrito
 productos.forEach(producto => {
   //evento individial para cada boton
   document.getElementById(`boton${producto.id}`).addEventListener("click",function(){agregarAlCarrito(producto)});
  })
-
-
+ //Funcion para agregar 
 function agregarAlCarrito(agregar){ 
     carrito.push(agregar);
     alert("Tu: "+ agregar.nombre +" se han sumado al carro");
-    document.getElementById("checkout").innerHTML+=`
+    document.getElementById("table").innerHTML+=`
     <tr>
     <th scope="row">${carrito.length}</th>
     <td>${agregar.nombre}</td>
@@ -56,7 +55,3 @@ function agregarAlCarrito(agregar){
     </tr>
     `;
 }
-
-
-
-
