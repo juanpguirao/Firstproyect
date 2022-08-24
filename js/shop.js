@@ -1,22 +1,28 @@
 //Array de productos cargados a carrito
-let carrito=[];
+//Revisando local Storage si hay productos pasados en carrito
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-
-if(localStorage.getItem("carrito")){
-  carrito=JSON.parse(localStorage.getItem("carrito"));
-  
-}
-//constructor de productos que vienen desde ../js/productos.js y se agregan al html directamente
-class listado {
-  constructor (id,nombre,descripcion,vencimiento, precio){
-  this.id = id;
-  this.nombre = nombre;
-  this.descripcion = descripcion;
-  this.vencimiento = vencimiento;
+//Constructor de elementos del carrito 
+class Carrito {
+  constructor (nombre, cantidad, precio){
+  this.nombre = nombre;;
   this.cantidad = parseFloat(cantidad);
   this.precio= parseFloat(precio);
 }
 }
+
+//Constructor de productos que vienen desde ../js/productos.js y se agregan al html directamente
+// class listado {
+//   constructor (id,nombre,descripcion,vencimiento, precio){
+//   this.id = id;
+//   this.nombre = nombre;
+//   this.descripcion = descripcion;
+//   this.vencimiento = vencimiento;
+//   this.cantidad = parseFloat(cantidad);
+//   this.precio= parseFloat(precio);
+// }
+// }
+
 //MOSTRANDO LOS PRODUCTOS UNO POR UNO EN HTML Y SE EJECUTA LINE POSTERIOR
 const packs = document.getElementById('shop');
   const mostrar =()=>{
@@ -37,17 +43,20 @@ const packs = document.getElementById('shop');
     }  
 }
 mostrar();
-//Agregando evento al boton para agregar al carrito
+//Agregando evento a cada boton para agregar al carrito por cada producto itinerado
 productos.forEach(producto => {
   //evento individial para cada boton
   document.getElementById(`boton${producto.id}`).addEventListener("click",function(){agregarAlCarrito(producto)});
  })
- //Funcion para agregar 
+
+//FUNCIONES
+ //Funcion para agregar al carrito, se va a agregar mediante un innerhtml 
 function agregarAlCarrito(agregar){ 
-    
-    carrito.push(agregar);
+    //sumando al carrito
+    carrito.push(new Carrito(agregar.nombre, agregar.cantidad, agregar.precio));
     alert("Tu: "+ agregar.nombre +" se han sumado al carro");
-    document.getElementById("checkout").innerHTML+=`
+    //sumando al modal
+    document.getElementById("items").innerHTML+=`
     <tr>
     <th scope="row">${carrito.length}</th>
     <td>${agregar.nombre}</td>
@@ -55,4 +64,23 @@ function agregarAlCarrito(agregar){
     <td>${agregar.precio}</td>
     </tr>
     `;
-}
+    //sumando precio total agregado al carrito 
+    let sumaTotal = carrito.reduce((total, precio)=> total+precio.precio, 0);
+    //verificando si hay objetos en carrito, de lo coantrario avisar que no tenemos productos
+    if (carrito.length === 0){document.getElementById("footerModal").innerHTML =`
+    <tr>
+    <th scope="row" colspan="4">Carrito vacío - comience a comprar!</th>
+    </tr>`
+    }else{
+    document.getElementById("footerModal").innerHTML =`
+    <tr>
+    <th scope="row" colspan="4">Total ${sumaTotal}</th>
+    </tr>`
+    } 
+    //sumando producto al localStorage
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+} 
+console.log(carrito)
+
+ 
