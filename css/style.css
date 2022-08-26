@@ -1,12 +1,5 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Satisfy&display=swap");
-body {
-  background-image: url(../Imagen/bg3.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed; }
-
 /* VARIABLES */
 nav .logo {
   margin-right: 50px; }
@@ -25,7 +18,7 @@ nav .boton {
   text-align: center;
   font-size: large;
   border-radius: 25px;
-  background-color: blue;
+  background-color: #4545f3;
   color: #271507;
   font-family: "Indie Flower", cursive;
   font-weight: bolder;
@@ -152,7 +145,7 @@ hr {
 
 /* Set a style for the submit/register button */
 .registerbtn {
-  background-color: #00c3ff;
+  background-color: #82bdcf;
   color: white;
   border-radius: 15px;
   padding: 16px 20px;
@@ -179,7 +172,7 @@ a {
   text-align: center;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: #00c3ff;
+  background-color: #82bdcf;
   padding: 15px;
   border-radius: 15px; }
 
@@ -189,7 +182,7 @@ a {
   font-size: 40px;
   font-family: "Pacifico", cursive;
   background-color: rgba(255, 255, 255, 0.5);
-  color: blue; }
+  color: #4545f3; }
 
 .contacto .form {
   width: 100%;

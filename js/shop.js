@@ -1,7 +1,7 @@
 //Array de productos cargados a carrito
 //Revisando local Storage si hay productos pasados en carrito
-const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
+const almacenados = JSON.parse(localStorage.getItem('carrito')) || [];
+const carrito = [];
 //Constructor de elementos del carrito 
 class Carrito {
   constructor (nombre, cantidad, precio){
@@ -10,7 +10,7 @@ class Carrito {
   this.precio= parseFloat(precio);
 }
 }
-
+//por ahora no lo uso
 //Constructor de productos que vienen desde ../js/productos.js y se agregan al html directamente
 // class listado {
 //   constructor (id,nombre,descripcion,vencimiento, precio){
@@ -29,7 +29,7 @@ const packs = document.getElementById('shop');
     for(var producto of productos){
 
       packs.innerHTML +=
-      `<div class="list-group" >
+      `<div class="list-group productos container" >
         <a href="#" class="list-group-item list-group-item-action" aria-current="true" id="boton${producto.id}">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">${producto.nombre}</h5>
@@ -54,7 +54,11 @@ productos.forEach(producto => {
 function agregarAlCarrito(agregar){ 
     //sumando al carrito
     carrito.push(new Carrito(agregar.nombre, agregar.cantidad, agregar.precio));
-    alert("Tu: "+ agregar.nombre +" se han sumado al carro");
+    Swal.fire(
+      'Tu: '+ agregar.nombre,
+      'se han sumado al carro',
+      'success'
+    )
     //sumando al modal
     document.getElementById("items").innerHTML+=`
     <tr>
@@ -80,6 +84,17 @@ function agregarAlCarrito(agregar){
     //sumando producto al localStorage
     localStorage.setItem("carrito", JSON.stringify(carrito));
 
+}
+let finalizar = document.getElementById("finalizarCompra");
+finalizar.onclick=()=>{
+  Swal.fire({
+    title: 'Pedido confirmado',
+    text: 'Estamos preparando todo para el envio',
+    icon: 'success',
+    imageWidth: 400,
+    imageHeight: 200,
+    imageAlt: 'Custom image',
+  })
 } 
 console.log(carrito)
 
