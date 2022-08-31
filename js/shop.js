@@ -1,12 +1,22 @@
 //Array de productos cargados a carrito
 //Revisando local Storage si hay productos pasados en carrito
-const almacenados = JSON.parse(localStorage.getItem('carrito')) || [];
-const carrito = [];
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+carrito.forEach ( producto =>{
+  document.querySelector("#items").innerHTML+=`  
+  <tr>
+  <th scope="col">${producto.length}</th>
+  <th scope="col">${producto.nombre}</th>
+  <th scope="col">${producto.cantidad}</th>
+  <th scope="col">${producto.precio}</th>
+  </tr>
+  `;
+})
 //Constructor de elementos del carrito 
 class Carrito {
   constructor (nombre, cantidad, precio){
   this.nombre = nombre;;
-  this.cantidad = parseFloat(cantidad);
+  this.cantidad = parseFloat(cantidad); 
   this.precio= parseFloat(precio);
 }
 }
