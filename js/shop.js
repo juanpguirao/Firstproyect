@@ -1,4 +1,6 @@
 //Array de productos cargados a carrito
+//VARIABLES PRINCIPALES-
+let productos=[];
 //Revisando local Storage si hay productos pasados en carrito
 const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
@@ -9,6 +11,7 @@ carrito.forEach ( producto =>{
   <th scope="col">${producto.nombre}</th>
   <th scope="col">${producto.cantidad}</th>
   <th scope="col">${producto.precio}</th>
+  <td><button id="eliminar${producto.id}" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i></button></td>
   </tr>
   `;
 })
@@ -20,22 +23,15 @@ class Carrito {
   this.precio= parseFloat(precio);
 }
 }
-//por ahora no lo uso
-//Constructor de productos que vienen desde ../js/productos.js y se agregan al html directamente
-// class listado {
-//   constructor (id,nombre,descripcion,vencimiento, precio){
-//   this.id = id;
-//   this.nombre = nombre;
-//   this.descripcion = descripcion;
-//   this.vencimiento = vencimiento;
-//   this.cantidad = parseFloat(cantidad);
-//   this.precio= parseFloat(precio);
-// }
-// }
 
 //MOSTRANDO LOS PRODUCTOS UNO POR UNO EN HTML Y SE EJECUTA LINE POSTERIOR
 const packs = document.getElementById('shop');
-  const mostrar =()=>{
+
+const mostrar =()=>{
+  fetch('../json/productos.json')
+  .then((res) => res.json())
+  .then((productos) => {
+    console.log(productos);
     for(var producto of productos){
 
       packs.innerHTML +=
@@ -50,36 +46,59 @@ const packs = document.getElementById('shop');
       </a>
       </div>
       `;
+      
     }  
+        //Agregando evento a cada boton para agregar al carrito por cada producto itinerado
+        productos.forEach(producto => {
+          //evento individial para cada boton
+          document.getElementById(`boton${producto.id}`).addEventListener("click",function(){agregarAlCarrito(producto)});
+        })
+  })
 }
 mostrar();
-//Agregando evento a cada boton para agregar al carrito por cada producto itinerado
-productos.forEach(producto => {
-  //evento individial para cada boton
-  document.getElementById(`boton${producto.id}`).addEventListener("click",function(){agregarAlCarrito(producto)});
- })
 
-//FUNCIONES
- //Funcion para agregar al carrito, se va a agregar mediante un innerhtml 
+
+                                  //FUNCIONES
+    //Funcion para agregar al carrito, se va a agregar mediante un innerhtml 
 function agregarAlCarrito(agregar){ 
     //sumando al carrito
     carrito.push(new Carrito(agregar.nombre, agregar.cantidad, agregar.precio));
     Swal.fire(
-      'Tu: '+ agregar.nombre,
-      'se han sumado al carro',
-      'success'
+      {
+        position: 'top-end',
+        icon: 'success',
+        title: 'Agregaste a tu carrito:'+"\n"+agregar.nombre,
+        showConfirmButton: false,
+        timer: 2500,
+        toast : true
+      }
     )
-    //sumando al modal
+            //sumando al modal  elementos del carrito
     document.getElementById("items").innerHTML+=`
     <tr>
     <th scope="row">${carrito.length}</th>
     <td>${agregar.nombre}</td>
     <td>${agregar.cantidad}</td>
     <td>${agregar.precio}</td>
+    <td><button id="eliminar${agregar.id}" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i></button></td>
     </tr>
     `;
-    //sumando precio total agregado al carrito 
+    //Agregando evento a cada boton del carrito por cada producto
+    document.getElementById(`eliminar${agregar.id}`).addEventListener("click",function(){eliminarProducto()});
+
+        
+    
+    //ELIMINAR PRODUCTOS-
+const eliminarProducto = (prodId) => {
+  const item = carrito.find(() => prod.id === prodId);
+  const indice = carrito.indexOf(item);
+  carrito.splice(indice, 1);
+  actualizarCarrito();
+}
+
+                      //sumando precio total agregado al carrito 
     let sumaTotal = carrito.reduce((total, precio)=> total+precio.precio, 0);
+    
     //verificando si hay objetos en carrito, de lo coantrario avisar que no tenemos productos
     if (carrito.length === 0){document.getElementById("footerModal").innerHTML =`
     <tr>
@@ -95,6 +114,7 @@ function agregarAlCarrito(agregar){
     localStorage.setItem("carrito", JSON.stringify(carrito));
 
 }
+              //FINALIZANDO  COMPRA 
 let finalizar = document.getElementById("finalizarCompra");
 finalizar.onclick=()=>{
   Swal.fire({

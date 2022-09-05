@@ -17,6 +17,7 @@ const popup = document.getElementById("modal").innerHTML=`
                             <th scope="col">Nombre</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Precio</th>
+                            <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody id="items"></tbody>
