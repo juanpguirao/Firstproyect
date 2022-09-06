@@ -1,13 +1,16 @@
 //Array de productos cargados a carrito
 //VARIABLES PRINCIPALES-
 let productos=[];
+let carrito=[];
+//Llamando funciones
+agregarAlCarrito();
 //Revisando local Storage si hay productos pasados en carrito
-const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+const locaCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 carrito.forEach ( producto =>{
   document.querySelector("#items").innerHTML+=`  
   <tr>
-  <th scope="col">${producto.length}</th>
+  <th scope="col">${producto.id}</th>
   <th scope="col">${producto.nombre}</th>
   <th scope="col">${producto.cantidad}</th>
   <th scope="col">${producto.precio}</th>
@@ -15,23 +18,18 @@ carrito.forEach ( producto =>{
   </tr>
   `;
 })
-//Constructor de elementos del carrito 
-class Carrito {
-  constructor (nombre, cantidad, precio){
-  this.nombre = nombre;;
-  this.cantidad = parseFloat(cantidad); 
-  this.precio= parseFloat(precio);
-}
-}
-
-//MOSTRANDO LOS PRODUCTOS UNO POR UNO EN HTML Y SE EJECUTA LINE POSTERIOR
+const contenedorCarrito = document.getElementById("itemsCarrito");
+const contenedorTotalModal = document.getElementById("footerTotal");
+const botonVaciarCarrito = document.getElementById("vaciar-carrito");
+const contadorCarrito = document.getElementById("conteo-carrito");
 const packs = document.getElementById('shop');
 
+
+//Se guarda en una variable una funcion flecha q muestran cada uno de los productos traidos por fetch desde json
 const mostrar =()=>{
   fetch('../json/productos.json')
   .then((res) => res.json())
   .then((productos) => {
-    console.log(productos);
     for(var producto of productos){
 
       packs.innerHTML +=
@@ -55,14 +53,22 @@ const mostrar =()=>{
         })
   })
 }
+//Llamando a la funcion a travez de la variable
 mostrar();
 
-
-                                  //FUNCIONES
-    //Funcion para agregar al carrito, se va a agregar mediante un innerhtml 
+//Constructor de elementos del carrito 
+class Carrito{
+  constructor (nombre, cantidad, precio){
+  this.nombre = nombre;;
+  this.cantidad = parseFloat(cantidad); 
+  this.precio= parseFloat(precio);
+  this.id = parseInt(id)
+}
+}
+        //Funcion para agregar al carrito, se va a agregar mediante un innerhtml 
 function agregarAlCarrito(agregar){ 
-    //sumando al carrito
-    carrito.push(new Carrito(agregar.nombre, agregar.cantidad, agregar.precio));
+        //sumando al carrito
+    carrito.push(new Carrito(agregar.nombre, agregar.cantidad, agregar.precio, agregar.id));
     Swal.fire(
       {
         position: 'top-end',
@@ -74,7 +80,7 @@ function agregarAlCarrito(agregar){
       }
     )
             //sumando al modal  elementos del carrito
-    document.getElementById("items").innerHTML+=`
+    document.getElementById("itemsCarrito").innerHTML+=`
     <tr>
     <th scope="row">${carrito.length}</th>
     <td>${agregar.nombre}</td>
@@ -83,23 +89,28 @@ function agregarAlCarrito(agregar){
     <td><button id="eliminar${agregar.id}" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i></button></td>
     </tr>
     `;
-    //Agregando evento a cada boton del carrito por cada producto
-    document.getElementById(`eliminar${agregar.id}`).addEventListener("click",function(){eliminarProducto()});
-
+          //Agregando evento a cada boton del carrito por cada producto
+          // document.getElementById(`eliminar${agregar.id}`).addEventListener("click",function(){eliminarProducto()});
+    const eliminarProducto = document.getElementById(`eliminar${agregar.id}`);
+    eliminarProducto.addEventListener("click", function(){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: agregar.nombre+" "+'eliminado!',
+            showConfirmButton: false,
+            timer: 2500,
+            toast : true
+          })
+   
+}); 
+}      
         
     
-    //ELIMINAR PRODUCTOS-
-const eliminarProducto = (prodId) => {
-  const item = carrito.find(() => prod.id === prodId);
-  const indice = carrito.indexOf(item);
-  carrito.splice(indice, 1);
-  actualizarCarrito();
-}
 
-                      //sumando precio total agregado al carrito 
+          //sumando precio total agregado al carrito 
     let sumaTotal = carrito.reduce((total, precio)=> total+precio.precio, 0);
     
-    //verificando si hay objetos en carrito, de lo coantrario avisar que no tenemos productos
+          //verificando si hay objetos en carrito, de lo coantrario avisar que no tenemos productos
     if (carrito.length === 0){document.getElementById("footerModal").innerHTML =`
     <tr>
     <th scope="row" colspan="4">Carrito vacío - comience a comprar!</th>
@@ -110,22 +121,34 @@ const eliminarProducto = (prodId) => {
     <th scope="row" colspan="4">Total ${sumaTotal}</th>
     </tr>`
     } 
-    //sumando producto al localStorage
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+            
 
-}
-              //FINALIZANDO  COMPRA 
-let finalizar = document.getElementById("finalizarCompra");
-finalizar.onclick=()=>{
-  Swal.fire({
-    title: 'Pedido confirmado',
-    text: 'Estamos preparando todo para el envio',
-    icon: 'success',
-    imageWidth: 400,
-    imageHeight: 200,
-    imageAlt: 'Custom image',
-  })
-} 
+            //boton eliminar productos
+        const eliminarProducto = (prodId) => {
+          const item = carrito.find(() => agregar.id === prodId);
+          const indice = carrito.indexOf(item);
+          carrito.splice(indice, 1);
+
+        }
+
+        //boton vaciar carrito
+        botonVaciarCarrito.addEventListener("click", () => {
+          if(carrito.length === 0){
+              Swal.fire('Todavía no has agregado nada!');
+          }else{
+              Swal.fire({
+                  title: 'Se ha vaciado tu carrito!',
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                  }
+                })
+          }
+          carrito.length = 0;
+        })
+
 console.log(carrito)
 
  

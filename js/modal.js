@@ -20,17 +20,20 @@ const popup = document.getElementById("modal").innerHTML=`
                             <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody id="items"></tbody>
-                        <tfoot id="footerModal"></tfoot>
+                        <tbody id="itemsCarrito"></tbody>
+                        <tfoot id="footerTotal">
+                            <th scope="row" colspan="5"></th>
+                        </tfoot>
                     </table>
                     <div class="row" id="cards"></div>
                 </div>
             
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button id="finalizarCompra" type="button" class="btn btn-primary">Terminar compra</button>
-            </div>
+                <div id="footerModal" class="modal-footer btn-group">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="vaciar-carrito" type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Vaciar carrito</button>
+                    <button id="finalizarCompra" type="button" class="btn btn-warning">Finalizar Compra
+                        <i class="fa fa-shopping-cart"></i></button>
         </div>
     </div>
 </div>`
