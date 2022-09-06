@@ -1,12 +1,18 @@
-//Array de productos cargados a carrito
-//VARIABLES PRINCIPALES-
-let productos=[];
+//Constructor de elementos del carrito 
+class Carrito{
+  constructor (nombre, cantidad, precio, id){
+  this.nombre = nombre;;
+  this.cantidad = parseFloat(cantidad); 
+  this.precio= parseFloat(precio);
+  this.id = parseInt(id)
+}
+}
+
+//VARIABLES
 let carrito=[];
-//Llamando funciones
-agregarAlCarrito();
+
 //Revisando local Storage si hay productos pasados en carrito
 const locaCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
 carrito.forEach ( producto =>{
   document.querySelector("#items").innerHTML+=`  
   <tr>
@@ -18,11 +24,10 @@ carrito.forEach ( producto =>{
   </tr>
   `;
 })
-const contenedorCarrito = document.getElementById("itemsCarrito");
+
+const botonVaciarCarrito = document.getElementById("vaciarCarrito");
 const contenedorTotalModal = document.getElementById("footerTotal");
-const botonVaciarCarrito = document.getElementById("vaciar-carrito");
-const contadorCarrito = document.getElementById("conteo-carrito");
-const packs = document.getElementById('shop');
+
 
 
 //Se guarda en una variable una funcion flecha q muestran cada uno de los productos traidos por fetch desde json
@@ -31,7 +36,7 @@ const mostrar =()=>{
   .then((res) => res.json())
   .then((productos) => {
     for(var producto of productos){
-
+      const packs = document.getElementById('shop');
       packs.innerHTML +=
       `<div class="list-group productos container" >
         <a href="#" class="list-group-item list-group-item-action" aria-current="true" id="boton${producto.id}">
@@ -44,7 +49,6 @@ const mostrar =()=>{
       </a>
       </div>
       `;
-      
     }  
         //Agregando evento a cada boton para agregar al carrito por cada producto itinerado
         productos.forEach(producto => {
@@ -56,15 +60,6 @@ const mostrar =()=>{
 //Llamando a la funcion a travez de la variable
 mostrar();
 
-//Constructor de elementos del carrito 
-class Carrito{
-  constructor (nombre, cantidad, precio){
-  this.nombre = nombre;;
-  this.cantidad = parseFloat(cantidad); 
-  this.precio= parseFloat(precio);
-  this.id = parseInt(id)
-}
-}
         //Funcion para agregar al carrito, se va a agregar mediante un innerhtml 
 function agregarAlCarrito(agregar){ 
         //sumando al carrito
@@ -103,12 +98,12 @@ function agregarAlCarrito(agregar){
           })
    
 }); 
-}      
-        
+}
+agregarAlCarrito();
     
 
           //sumando precio total agregado al carrito 
-    let sumaTotal = carrito.reduce((total, precio)=> total+precio.precio, 0);
+     contenedorTotalModal = carrito.reduce((total, precio)=> total+precio.precio, 0);
     
           //verificando si hay objetos en carrito, de lo coantrario avisar que no tenemos productos
     if (carrito.length === 0){document.getElementById("footerModal").innerHTML =`
@@ -125,7 +120,7 @@ function agregarAlCarrito(agregar){
 
             //boton eliminar productos
         const eliminarProducto = (prodId) => {
-          const item = carrito.find(() => agregar.id === prodId);
+          const item = carrito.find((prod) => prod.id === prodId);
           const indice = carrito.indexOf(item);
           carrito.splice(indice, 1);
 
